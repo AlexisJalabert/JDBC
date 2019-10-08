@@ -85,7 +85,7 @@ public class DAO {
             try (Connection connection = myDataSource.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(sql)) {
 		// Définir la valeur du paramètre
-		stmt.setInt(1, customerId);
+		stmt.setInt(1, customerId); // On ajoute la paramètre
                 ResultSet rs = stmt.executeQuery();
                 rs.next();
                 result = rs.getInt("NUMBER");
@@ -105,7 +105,23 @@ public class DAO {
 	 * @throws DAOException
 	 */
 	CustomerEntity findCustomer(int customerID) throws DAOException {
-		throw new UnsupportedOperationException("Pas encore implémenté");
+            CustomerEntity result = null;
+            String sql = "SELECT * FROM CUSTOMER WHERE CUSTOMER_ID = ?";
+            try(Connection connection = myDataSource.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
+                    
+                stmt.setInt(1, customerID); // On ajoute le paramètre
+                ResultSet rs = stmt.executeQuery();
+                if(rs.next()) { // SI on a un enregistrement, on renvoie les infos du client
+                    result = new CustomerEntity(customerID, rs.getString("NAME"),rs.getString("ADDRESSLINE1"));
+                } // SINON on ne fait rien, ca renvoiera null par défaut
+                    
+            } catch(SQLException ex) {
+                Logger.getLogger("DAO").log(Level.SEVERE, null, ex);
+                throw new DAOException(ex.getMessage());
+            }
+            
+            return result;
 	}
 
 	/**
