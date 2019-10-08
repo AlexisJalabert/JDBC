@@ -77,7 +77,9 @@ public class DAOTest {
 	 * Test of deleteCustomer method, of class DAO.
 	 * @throws simplejdbc.DAOException
 	 */
-	@Test @Ignore // Ce test est désactivé, pourquoi ?
+	@Test @Ignore // Ce test est désactivé, pourquoi ? On a déjà un test qui
+                      // supprime le client s'il a des commandes, alors ce test
+                      // est inutile parce que le client n'est de commande ou non, il sera tout de même supprimé
 	public void testDeleteCustomerWithoutOrder () throws DAOException {
 		int id = 25; // Le client 25 n'a pas de bon de commande
 		assertEquals(1, myDAO.deleteCustomer(id));
