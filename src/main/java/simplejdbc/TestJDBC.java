@@ -6,7 +6,7 @@ public class TestJDBC {
 
 	public static void main(String[] args) throws Exception {
                         
-                //Class.forName("org.apache.derby.jdbc.ClientDriver");            
+                           
 		//Connection connection = getConnectionWithDataSource();
 		Connection connection = getConnectionWithDriverManager();
 		// On crée un statement pour exécuter une requête
